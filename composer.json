@@ -1,0 +1,21 @@
+{
+	"name": "aimeos/macro",
+	"description": "Dynamically extend objects by custom methods",
+	"license": "MIT",
+	"type": "library",
+	"require": {
+		"php": "~7.1||~8.0"
+	},
+	"require-dev": {
+        "phpunit/phpunit": "~7.0||~8.0||~9.0",
+        "php-coveralls/php-coveralls": "~2.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"Aimeos\\Macro\\": "src"
+		},
+		"classmap": [
+			"src"
+		]
+	}
+}
