@@ -32,13 +32,13 @@ trait Macroable
 	public static function macro( string $name, \Closure $function = null ) : ?\Closure
 	{
 		if( $function ) {
-			static::$macros[static::class][$name] = $function;
+			self::$macros[static::class][$name] = $function;
 		}
 
 		foreach( array_merge( [static::class], class_parents( static::class ) ) as $class )
 		{
-			if( isset( static::$macros[$class][$name] ) ) {
-				return static::$macros[$class][$name];
+			if( isset( self::$macros[$class][$name] ) ) {
+				return self::$macros[$class][$name];
 			}
 		}
 
@@ -56,7 +56,7 @@ trait Macroable
 	 */
 	public static function unmacro( string $name ) : void
 	{
-		unset( static::$macros[static::class][$name] );
+		unset( self::$macros[static::class][$name] );
 	}
 
 
