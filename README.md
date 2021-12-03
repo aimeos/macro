@@ -1,4 +1,4 @@
-# PHP Macro: Dynamically add object methods
+## PHP Macro
 
 Easy to use PHP package for extending objects by custom methods at runtime.
 
@@ -16,7 +16,7 @@ to add new or overwrite existing functionality to be able customize its behaviou
 This is where dynamic macros are very handy because they can add custom methods
 at runtime.
 
-## Allow customization using macros
+## Allow customization
 
 The result of existing methods can be modified if the (framework) method checks
 for an existing macro and use that instead its own implementation:

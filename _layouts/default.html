@@ -52,9 +52,15 @@
 		</header>
 
 		<div class="container">
+			<nav class="sidebar">
+				<h2>Content</h2>
+				<div class="toc"></div>
+			</nav>
 			<main id="content" class="main-content" role="main">
 				{{ content }}
 			</main>
 		</div>
+
+		<script src="{{ '/assets/js/script.js?v=' | append: site.github.build_revision | relative_url }}"></script>
 	</body>
 </html>

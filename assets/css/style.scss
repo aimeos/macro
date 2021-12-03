@@ -21,6 +21,7 @@ header.page-header {
 
 header h1>a {
 	color: #fff;
+	line-height: initial;
 }
 
 header .icon.github {
@@ -29,6 +30,7 @@ header .icon.github {
 
 header .octocat {
 	width: 3rem;
+	margin: 0.25rem 0;
 }
 
 header svg {
