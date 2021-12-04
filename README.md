@@ -6,23 +6,30 @@ Easy to use PHP package for extending objects by custom methods at runtime.
 composer req aimeos/macro
 ```
 
+This package is for application, framework and library developers who want to
+allow customizing the behavior of their code by their users.
+
 ## Why macros
 
 Unlike other languages, PHP doesn't allow to extend objects at runtime and you
 can only inject methods into classes at compile time using traits.
 
-In applications and frameworks which are build for customization it's necessary
-to add new or overwrite existing functionality to be able customize its behaviour.
-This is where dynamic macros are very handy because they can add custom methods
-at runtime.
+In applications, frameworks or libraries which are build for customization it's
+necessary to add new or overwrite existing functionality to be able customize
+its behavior. This is where dynamic macros are very handy because they can add
+custom methods at runtime.
+
+Using the PHP Macro package, you can also allow users to overwrite methods in
+base classes without forcing your users to extend these classes.
 
 ## Allow customization
 
-The result of existing methods can be modified if the (framework) method checks
+The result of existing methods can be modified if the original method checks
 for an existing macro and use that instead its own implementation:
 
 ```php
-// in a framework
+// original code
+
 class A {
     use Aimeos\Macro\Macroable;
 
@@ -36,7 +43,8 @@ class A {
 Now, you can add your custom `concat` macro that will be used instead:
 
 ```php
-// own application
+// user code
+
 A::macro( 'concat', function( array $values ) {
    return implode( '-', $values );
 };
@@ -45,14 +53,15 @@ A::macro( 'concat', function( array $values ) {
 ```
 
 Thus, you can generate own output or pass a different result to subseqent methods
-within the application or framework.
+within the application.
 
 ## Access class properties
 
 When macros are called in an object context, they can also access class properties:
 
 ```php
-// in a framework
+// original code
+
 class A {
     use Aimeos\Macro\Macroable;
 	private $name = 'A';
@@ -62,7 +71,8 @@ class A {
 Here, the private property `$name` is available in the macro:
 
 ```php
-// own application
+// user code
+
 A::macro( 'concat', function( array $values ) {
    return $this->name . ':' . implode( '-', $values );
 };
@@ -79,7 +89,8 @@ they can access class properties of the child class just like regular class
 methods:
 
 ```php
-// in a framework
+// original code
+
 class A {
     use Aimeos\Macro\Macroable;
 	private $name = 'A';
@@ -93,7 +104,8 @@ class B extends A {
 Macros added to the parent class will be available in child classes too:
 
 ```php
-// own application
+// user code
+
 A::macro( 'concat', function( array $values ) {
    return $this->name . ':' . implode( '-', $values );
 };
@@ -111,7 +123,8 @@ It's also possible to overwrite macros inherited from parent classes as it's
 possible with regular class methods:
 
 ```php
-// in a framework
+// original code
+
 class A {
     use Aimeos\Macro\Macroable;
 
@@ -128,7 +141,8 @@ class C extends A {};
 Now you can add macros to the parent class and one of the child classes:
 
 ```php
-// own application
+// user code
+
 A::macro( 'concat', function( array $values ) {
    return implode( ',', $values );
 };
@@ -151,11 +165,12 @@ Base classes often offer a set of methods that are used by the child classes.
 In PHP, replacing the methods of a base class is impossible and thus, you have
 to overwrite each child class with your own implementation.
 
-To avoid that, framework classes can use the `call()` method instead of calling
+To avoid that, the original method can use the `call()` method instead of calling
 the method of the parent class directly:
 
 ```php
-// in a framework
+// original code
+
 class A {
     use Aimeos\Macro\Macroable;
 
@@ -175,7 +190,7 @@ This will check if there's a macro `getName` available and will call that instea
 of the `getName()` method:
 
 ```php
-// own application
+// user code
 
 (new B)->do(); // returns 'B-A'
 
