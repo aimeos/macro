@@ -47,7 +47,7 @@ Now, you can add your custom `concat` macro that will be used instead:
 
 A::macro( 'concat', function( array $values ) {
    return implode( '-', $values );
-};
+} );
 
 (new A)->do(); // now returns '1-2-3'
 ```
@@ -75,7 +75,7 @@ Here, the private property `$name` is available in the macro:
 
 A::macro( 'concat', function( array $values ) {
    return $this->name . ':' . implode( '-', $values );
-};
+} );
 
 (new A)->concat( ['1', '2', '3'] ); // returns 'A:1-2-3'
 ```
@@ -108,7 +108,7 @@ Macros added to the parent class will be available in child classes too:
 
 A::macro( 'concat', function( array $values ) {
    return $this->name . ':' . implode( '-', $values );
-};
+} );
 
 (new B)->concat( ['1', '2', '3'] ); // returns 'B:1-2-3'
 ```
@@ -145,11 +145,11 @@ Now you can add macros to the parent class and one of the child classes:
 
 A::macro( 'concat', function( array $values ) {
    return implode( ',', $values );
-};
+} );
 
 C::macro( 'concat', function( array $values ) {
    return implode( '-', $values );
-};
+} );
 
 (new B)->do(); // returns '1,2,3'
 
@@ -196,7 +196,7 @@ of the `getName()` method:
 
 A::macro( 'getName', function( $prefix ) {
    return $this->getName( $prefix ) . '-123';
-};
+} );
 
 (new B)->do(); // returns 'B-A-123'
 ```
