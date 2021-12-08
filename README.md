@@ -33,10 +33,10 @@ for an existing macro and use that instead its own implementation:
 class A {
     use Aimeos\Macro\Macroable;
 
-	public function do() {
-		$fcn = static::macro( 'concat' );
-		return $fcn ? $fcn( [1, 2, 3] ) : join( ',', [1, 2, 3] );
-	}
+    public function do() {
+        $fcn = static::macro( 'concat' );
+        return $fcn ? $fcn( [1, 2, 3] ) : join( ',', [1, 2, 3] );
+    }
 };
 ```
 
@@ -64,7 +64,7 @@ When macros are called in an object context, they can also access class properti
 
 class A {
     use Aimeos\Macro\Macroable;
-	private $name = 'A';
+    private $name = 'A';
 };
 ```
 
@@ -93,11 +93,11 @@ methods:
 
 class A {
     use Aimeos\Macro\Macroable;
-	private $name = 'A';
+    private $name = 'A';
 };
 
 class B extends A {
-	private $name = 'B';
+    private $name = 'B';
 };
 ```
 
@@ -128,9 +128,9 @@ possible with regular class methods:
 class A {
     use Aimeos\Macro\Macroable;
 
-	public function do() {
-		return static::macro( 'concat' )( [1, 2, 3] );
-	}
+    public function do() {
+        return static::macro( 'concat' )( [1, 2, 3] );
+    }
 };
 
 class B extends A {};
@@ -174,15 +174,15 @@ the method of the parent class directly:
 class A {
     use Aimeos\Macro\Macroable;
 
-	protected function getName( $prefix ) {
-		return $prefix . 'A';
-	}
+    protected function getName( $prefix ) {
+        return $prefix . 'A';
+    }
 };
 
 class B extends A {
-	public function do() {
-		return $this->call( 'getName', 'B-' );
-	}
+    public function do() {
+        return $this->call( 'getName', 'B-' );
+    }
 };
 ```
 
