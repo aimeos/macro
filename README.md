@@ -202,3 +202,22 @@ A::macro( 'getName', function( $prefix ) {
 ```
 
 The original `getName()` method can still be used in the macro.
+
+## Reset macros
+
+Sometimes, it may be necessary to remove macros from objects, especially when
+running automated tests. You can unset a macro by using:
+
+```php
+class A {
+    use Aimeos\Macro\Macroable;
+};
+
+// add macro
+A::macro( 'test', function() {
+   return 'test';
+} );
+
+// remove macro
+A::unmacro( 'test' );
+```

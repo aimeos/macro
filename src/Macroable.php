@@ -35,7 +35,7 @@ trait Macroable
 			self::$macros[static::class][$name] = $function;
 		}
 
-		foreach( array_merge( [static::class], class_parents( static::class ) ) as $class )
+		foreach( array_merge( [static::class], (array) class_parents( static::class ) ) as $class )
 		{
 			if( isset( self::$macros[$class][$name] ) ) {
 				return self::$macros[$class][$name];
@@ -53,6 +53,7 @@ trait Macroable
 	 *  SomeClass::unmacro( 'test' );
 	 *
 	 * @param string $name Macro name
+	 * @return void
 	 */
 	public static function unmacro( string $name ) : void
 	{
@@ -64,7 +65,7 @@ trait Macroable
 	 * Passes method calls to the custom macros without access to class properties
 	 *
 	 * @param string $name Macro name
-	 * @param array $args Macro arguments
+	 * @param array<int,mixed> $args Macro arguments
 	 * @return mixed Result or macro call
 	 */
 	public function __call( string $name, array $args )
@@ -82,7 +83,7 @@ trait Macroable
 	 * Passes method calls to the custom macros with access to class properties
 	 *
 	 * @param string $name Macro name
-	 * @param array $args Macro arguments
+	 * @param array<int,mixed> $args Macro arguments
 	 * @return mixed Result or macro call
 	 */
 	public static function __callStatic( string $name, array $args )
@@ -100,7 +101,7 @@ trait Macroable
 	 * Passes method calls to the custom macros overwriting existing methods
 	 *
 	 * @param string $name Macro name
-	 * @param array $args Macro arguments
+	 * @param array<int,mixed> $args Macro arguments
 	 * @return mixed Result or macro call
 	 */
 	protected function call( string $name, ...$args )
