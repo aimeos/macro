@@ -70,11 +70,11 @@ trait Macroable
 	public function __call( string $name, array $args )
 	{
 		if( $fcn = static::macro( $name ) ) {
-			return call_user_func_array( $fcn->bindTo( $this, self::class ), $args );
+			return call_user_func_array( $fcn->bindTo( $this, static::class ), $args );
 		}
 
 		$msg = 'Called unknown macro "%1$s" on class "%2$s"';
-		throw new \BadMethodCallException( sprintf( $msg, $name, self::class ) );
+		throw new \BadMethodCallException( sprintf( $msg, $name, static::class ) );
 	}
 
 
