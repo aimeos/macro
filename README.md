@@ -23,6 +23,24 @@ Using the PHP Macro package, you can also allow users to overwrite methods in
 base classes without forcing your users to extend these classes. The PHP Macro
 package uses **NO reflection** or other hacks, just **pure PHP methods** :-)
 
+There are some pros and cons using PHP Macros when compared to standard
+depencency injection:
+
+**Pro:**
+
+* Easier for simple stuff
+* Much less code to write
+* Scales better in terms of code if you have some more dependencies
+
+**Con:**
+
+* Limited static analysis possibilities
+* Anonymous function can not be forced to implement an interface
+
+Thus, it's not an alternative to standard depencency injection but a lightweight
+addition for small extension points where dependency injection using classes
+with interfaces are too much to implement.
+
 ## Allow customization
 
 The result of existing methods can be modified if the original method checks
