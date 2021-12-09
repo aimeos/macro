@@ -20,7 +20,8 @@ its behavior. This is where dynamic macros are very handy because they can add
 custom methods at runtime.
 
 Using the PHP Macro package, you can also allow users to overwrite methods in
-base classes without forcing your users to extend these classes.
+base classes without forcing your users to extend these classes. The PHP Macro
+package uses **NO reflection** or other hacks, just **pure PHP methods** :-)
 
 ## Allow customization
 
@@ -30,26 +31,30 @@ for an existing macro and use that instead its own implementation:
 ```php
 // original code
 
-class A {
+class Order
+{
     use Aimeos\Macro\Macroable;
 
-    public function do() {
-        $fcn = static::macro( 'concat' );
-        return $fcn ? $fcn( [1, 2, 3] ) : join( ',', [1, 2, 3] );
+    private $id = '123';
+
+    public function getOrderNumber()
+    {
+        $fcn = static::macro( 'orderNumber' );
+        return $fcn ? $fcn( $this->id ) : $this->id;
     }
 };
 ```
 
-Now, you can add your custom `concat` macro that will be used instead:
+Now, you can add your custom `orderNumber` macro that will be used instead:
 
 ```php
 // user code
 
-A::macro( 'concat', function( array $values ) {
-   return implode( '-', $values );
+Order::macro( 'orderNumber', function( string $id ) {
+   return date( 'Y' ) . '-' . $id;
 } );
 
-(new A)->do(); // now returns '1-2-3'
+(new Order)->getOrderNumber(); // now returns '2020-123'
 ```
 
 Thus, you can generate own output or pass a different result to subseqent methods
@@ -62,7 +67,8 @@ When macros are called in an object context, they can also access class properti
 ```php
 // original code
 
-class A {
+class A
+{
     use Aimeos\Macro\Macroable;
     private $name = 'A';
 };
@@ -91,12 +97,14 @@ methods:
 ```php
 // original code
 
-class A {
+class A
+{
     use Aimeos\Macro\Macroable;
     private $name = 'A';
 };
 
-class B extends A {
+class B extends A
+{
     private $name = 'B';
 };
 ```
@@ -125,7 +133,8 @@ possible with regular class methods:
 ```php
 // original code
 
-class A {
+class A
+{
     use Aimeos\Macro\Macroable;
 
     public function do() {
@@ -171,16 +180,20 @@ the method of the parent class directly:
 ```php
 // original code
 
-class A {
+class A
+{
     use Aimeos\Macro\Macroable;
 
-    protected function getName( $prefix ) {
+    protected function getName( $prefix )
+    {
         return $prefix . 'A';
     }
 };
 
-class B extends A {
-    public function do() {
+class B extends A
+{
+    public function do()
+    {
         return $this->call( 'getName', 'B-' );
     }
 };
@@ -209,7 +222,8 @@ Sometimes, it may be necessary to remove macros from objects, especially when
 running automated tests. You can unset a macro by using:
 
 ```php
-class A {
+class A
+{
     use Aimeos\Macro\Macroable;
 };
 
