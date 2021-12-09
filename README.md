@@ -1,6 +1,7 @@
 ## PHP Macro
 
-Easy to use PHP package for extending objects by custom methods at runtime.
+The PHP Macro package offers closure (anonymous function) based setter dependency
+injection by offering a trait which can be included into any class.
 
 ```bash
 composer req aimeos/macro
@@ -11,35 +12,30 @@ allow customizing the behavior of their code by their users.
 
 ## Why macros
 
-Unlike other languages, PHP doesn't allow to extend objects at runtime and you
-can only inject methods into classes at compile time using traits.
-
-In applications, frameworks or libraries which are build for customization it's
-necessary to add new or overwrite existing functionality to be able customize
-its behavior. This is where dynamic macros are very handy because they can add
-custom methods at runtime.
+In applications, frameworks or libraries which are build for customization it’s
+necessary to add overwrite existing functionality to be able customize its
+behavior. This is where macros are very handy because they can add custom code
+using closures.
 
 Using the PHP Macro package, you can also allow users to overwrite methods in
 base classes without forcing your users to extend these classes. The PHP Macro
 package uses **NO reflection** or other hacks, just **pure PHP methods** :-)
 
-There are some pros and cons using PHP Macros when compared to standard
-depencency injection:
+There are some pros and cons when compared to class based depencency injection:
 
 **Pro:**
 
-* Easier for simple stuff
-* Much less code to write
-* Scales better in terms of code if you have some more dependencies
+* Less code to write and much easier to implement for simple stuff
+* Custom closures can be inherited and overwritten like class methods
 
 **Con:**
 
-* Limited static analysis possibilities
+* Limited static code analysis possibilities
 * Anonymous function can not be forced to implement an interface
 
-Thus, it's not an alternative to standard depencency injection but a lightweight
-addition for small extension points where dependency injection using classes
-with interfaces are too much to implement.
+Thus, it's not a replacement for class based depencency injection but a lightweight
+addition for small extension points where full-blown dependency injection using
+classes implementing interfaces are too much work.
 
 ## Allow customization
 
