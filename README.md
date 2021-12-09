@@ -13,13 +13,13 @@ allow customizing the behavior of their code by their users.
 ## Why macros
 
 In applications, frameworks or libraries which are build for customization it’s
-necessary to add overwrite existing functionality to be able customize its
+necessary to allow overwriting existing functionality to be able customize its
 behavior. This is where macros are very handy because they can add custom code
 using closures.
 
-Using the PHP Macro package, you can also allow users to overwrite methods in
+With the PHP Macro package, you can also allow users to overwrite methods in
 base classes without forcing your users to extend these classes. The PHP Macro
-package uses **NO reflection** or other hacks, just **pure PHP methods** :-)
+package uses **NO reflection** or other hacks, just **pure PHP methods**.
 
 There are some pros and cons when compared to class based depencency injection:
 
