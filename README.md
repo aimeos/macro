@@ -1,6 +1,7 @@
 ## PHP Macro
 
-Easy to use PHP package for extending objects by custom methods at runtime.
+The PHP Macro package offers closure (anonymous function) based setter dependency
+injection by providing a trait which can be included into any class.
 
 ```bash
 composer req aimeos/macro
