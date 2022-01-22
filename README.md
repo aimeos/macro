@@ -1,7 +1,7 @@
 ## PHP Macro
 
 The PHP Macro package offers closure (anonymous function) based setter dependency
-injection by offering a trait which can be included into any class.
+injection by providing a trait which can be included into any class.
 
 ```bash
 composer req aimeos/macro

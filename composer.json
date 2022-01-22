@@ -1,6 +1,6 @@
 {
 	"name": "aimeos/macro",
-	"description": "Dynamically extend objects by custom methods",
+	"description": "Customize classes using closures",
 	"license": "MIT",
 	"type": "library",
 	"require": {

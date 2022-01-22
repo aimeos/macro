@@ -74,7 +74,7 @@ trait Macroable
 			return call_user_func_array( $fcn->bindTo( $this, static::class ), $args );
 		}
 
-		$msg = 'Called unknown macro "%1$s" on class "%2$s"';
+		$msg = 'Called unknown method "%1$s" on class "%2$s"';
 		throw new \BadMethodCallException( sprintf( $msg, $name, static::class ) );
 	}
 
@@ -92,7 +92,7 @@ trait Macroable
 			return call_user_func_array( \Closure::bind( $fcn, null, static::class ), $args );
 		}
 
-		$msg = 'Called unknown macro "%1$s" on class "%2$s"';
+		$msg = 'Called unknown method "%1$s" on class "%2$s"';
 		throw new \BadMethodCallException( sprintf( $msg, $name, static::class ) );
 	}
 
