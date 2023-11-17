@@ -75,6 +75,16 @@ class MacroableTest extends \PHPUnit\Framework\TestCase
 	}
 
 
+	public function testMacroContext()
+	{
+		TestC::macro( 'test', function() {
+			return $this->name();
+		} );
+
+		$this->assertEquals( 'Aimeos\Macro\TestC', ( new TestC() )->where() );
+	}
+
+
 	public function testUnmacro()
 	{
 		TestC::macro( 'test', function() {
@@ -110,6 +120,11 @@ class TestA implements Iface
 
 class TestB extends TestA
 {
+	protected function name()
+	{
+		return get_class( $this );
+	}
+
 	protected function test( $arg )
 	{
 		return $arg;
