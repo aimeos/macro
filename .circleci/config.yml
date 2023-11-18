@@ -90,6 +90,20 @@ jobs:
           paths: [./vendor]
       - run: ./vendor/bin/phpunit
 
+  "php-8.2":
+    docker:
+      - image: aimeos/ci-php:8.2
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - php80-{{ checksum "composer.json" }}
+      - run: composer update -n --prefer-dist
+      - save_cache:
+          key: php80-{{ checksum "composer.json" }}
+          paths: [./vendor]
+      - run: ./vendor/bin/phpunit
+
 workflows:
   version: 2
   unittest:
@@ -100,3 +114,4 @@ workflows:
       - "php-7.4"
       - "php-8.0"
       - "php-8.1"
+      - "php-8.2"
