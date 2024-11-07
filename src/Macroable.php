@@ -2,7 +2,7 @@
 
 /**
  * @license MIT, https://opensource.org/licenses/MIT
- * @copyright Aimeos (aimeos.org), 2021
+ * @copyright Aimeos (aimeos.org), 2021-2024
  */
 
 
@@ -29,7 +29,7 @@ trait Macroable
 	 * @param \Closure|null $function Anonymous function
 	 * @return \Closure|null Registered function or NULL if not available
 	 */
-	public static function macro( string $name, \Closure $function = null ) : ?\Closure
+	public static function macro( string $name, ?\Closure $function = null ) : ?\Closure
 	{
 		if( $function ) {
 			self::$macros[static::class][$name] = $function;
