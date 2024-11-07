@@ -12,16 +12,30 @@ allow customizing the behavior of their code by their users.
 
 ## Why macros
 
-Unlike other languages, PHP doesn't allow to extend objects at runtime and you
-can only inject methods into classes at compile time using traits.
+In applications, frameworks or libraries which are build for customization it’s
+necessary to allow overwriting existing functionality to be able customize its
+behavior. This is where macros are very handy because they can add custom code
+using closures.
 
-In applications, frameworks or libraries which are build for customization it's
-necessary to add new or overwrite existing functionality to be able customize
-its behavior. This is where dynamic macros are very handy because they can add
-custom methods at runtime.
+With the PHP Macro package, you can also allow users to overwrite methods in
+base classes without forcing your users to extend these classes. The PHP Macro
+package uses **NO reflection** or other hacks, just **pure PHP methods**.
 
-Using the PHP Macro package, you can also allow users to overwrite methods in
-base classes without forcing your users to extend these classes.
+There are some pros and cons when compared to class based depencency injection:
+
+**Pro:**
+
+* Less code to write and much easier to implement for simple stuff
+* Custom closures can be inherited and overwritten like class methods
+
+**Con:**
+
+* Limited static code analysis possibilities
+* Anonymous function can not be forced to implement an interface
+
+Thus, it's not a replacement for class based depencency injection but a lightweight
+addition for small extension points where full-blown dependency injection using
+classes implementing interfaces are too much work.
 
 ## Allow customization
 
@@ -31,26 +45,30 @@ for an existing macro and use that instead its own implementation:
 ```php
 // original code
 
-class A {
+class Order
+{
     use Aimeos\Macro\Macroable;
 
-    public function do() {
-        $fcn = static::macro( 'concat' );
-        return $fcn ? $fcn( [1, 2, 3] ) : join( ',', [1, 2, 3] );
+    private $id = '123';
+
+    public function getOrderNumber()
+    {
+        $fcn = static::macro( 'orderNumber' );
+        return $fcn ? $fcn( $this->id ) : $this->id;
     }
 };
 ```
 
-Now, you can add your custom `concat` macro that will be used instead:
+Now, you can add your custom `orderNumber` macro that will be used instead:
 
 ```php
 // user code
 
-A::macro( 'concat', function( array $values ) {
-   return implode( '-', $values );
+Order::macro( 'orderNumber', function( string $id ) {
+   return date( 'Y' ) . '-' . $id;
 } );
 
-(new A)->do(); // now returns '1-2-3'
+(new Order)->getOrderNumber(); // now returns '2020-123'
 ```
 
 Thus, you can generate own output or pass a different result to subseqent methods
@@ -63,7 +81,8 @@ When macros are called in an object context, they can also access class properti
 ```php
 // original code
 
-class A {
+class A
+{
     use Aimeos\Macro\Macroable;
     private $name = 'A';
 };
@@ -92,12 +111,14 @@ methods:
 ```php
 // original code
 
-class A {
+class A
+{
     use Aimeos\Macro\Macroable;
     private $name = 'A';
 };
 
-class B extends A {
+class B extends A
+{
     private $name = 'B';
 };
 ```
@@ -126,7 +147,8 @@ possible with regular class methods:
 ```php
 // original code
 
-class A {
+class A
+{
     use Aimeos\Macro\Macroable;
 
     public function do() {
@@ -172,16 +194,20 @@ the method of the parent class directly:
 ```php
 // original code
 
-class A {
+class A
+{
     use Aimeos\Macro\Macroable;
 
-    protected function getName( $prefix ) {
+    protected function getName( $prefix )
+    {
         return $prefix . 'A';
     }
 };
 
-class B extends A {
-    public function do() {
+class B extends A
+{
+    public function do()
+    {
         return $this->call( 'getName', 'B-' );
     }
 };
@@ -210,7 +236,8 @@ Sometimes, it may be necessary to remove macros from objects, especially when
 running automated tests. You can unset a macro by using:
 
 ```php
-class A {
+class A
+{
     use Aimeos\Macro\Macroable;
 };
 

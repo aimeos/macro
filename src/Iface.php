@@ -2,7 +2,7 @@
 
 /**
  * @license MIT, https://opensource.org/licenses/MIT
- * @copyright Aimeos (aimeos.org), 2021
+ * @copyright Aimeos (aimeos.org), 2021-2024
  */
 
 
@@ -26,7 +26,7 @@ interface Iface
 	 * @param \Closure|null $function Anonymous function
 	 * @return \Closure|null Registered function
 	 */
-	public static function macro( string $name, \Closure $function = null ) : ?\Closure;
+	public static function macro( string $name, ?\Closure $function = null ) : ?\Closure;
 
 	/**
 	 * Unsets the custom macro given by its name
