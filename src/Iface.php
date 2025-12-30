@@ -2,7 +2,7 @@
 
 /**
  * @license MIT, https://opensource.org/licenses/MIT
- * @copyright Aimeos (aimeos.org), 2021-2024
+ * @copyright Aimeos (aimeos.org), 2021-2026
  */
 
 
